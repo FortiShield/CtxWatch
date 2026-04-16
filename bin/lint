@@ -1,7 +1,0 @@
-#!/bin/bash
-set -e
-
-python -m isort ctxwatch
-python -m black .
-python -m flake8 ctxwatch
-python -m mypy .
