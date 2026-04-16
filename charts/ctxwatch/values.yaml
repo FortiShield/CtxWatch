@@ -1,6 +1,6 @@
 image:
-  repository: ghcr.io/khulnasoft/ctxwatch/api
-  frontendRepository: ghcr.io/khulnasoft/ctxwatch/frontend
+  repository: ghcr.io/ctxos/ctxwatch/api
+  frontendRepository: ghcr.io/ctxos/ctxwatch/frontend
   tag: main
 
 nginx:
