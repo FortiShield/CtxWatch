@@ -22,10 +22,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Install Helm
-        uses: azure/setup-helm@v1
+        uses: azure/setup-helm@v6
         with:
           version: v3.12.2
 
@@ -51,7 +51,7 @@ jobs:
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@4b85f2c82c80ff4284ff8520f47bbe69dd89b0aa
-        if: github.ref == 'refs/heads/main' && github.repository == 'KhulnaSoft/CtxWatch'
+        if: github.ref == 'refs/heads/main' && github.repository == 'FortiShield/CtxWatch'
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         with:
