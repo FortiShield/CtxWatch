@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class CtxWatchConfig(AppConfig):
-    name = "CtxWatch"
+    name = "ctxwatch"
     verbose_name = "CtxWatch"
