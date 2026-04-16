@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ctxwatch.fullname" . }}
+  annotations:
+    {{- toYaml .Values.service.annotations | nindent 4 }}
+  labels:
+    {{- include "ctxwatch.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "ctxwatch.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/service: nginx
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ctxwatch.fullname" . }}-api
+  labels:
+    {{- include "ctxwatch.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8000
+      targetPort: api
+      protocol: TCP
+      name: api
+  selector:
+    {{- include "ctxwatch.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/service: web
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ctxwatch.fullname" . }}-redis
+  labels:
+    {{- include "ctxwatch.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 6379
+      targetPort: 6379
+      protocol: TCP
+      name: redis
+  selector:
+    {{- include "ctxwatch.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/service: redis

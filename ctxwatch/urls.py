@@ -1,9 +1,15 @@
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from django.urls import include, path
+from django.urls import path
 from rest_framework_extensions.routers import ExtendedDefaultRouter
-from ctxwatch.api.instances import InstanceViewset
+from ctxwatch.api.instance import InstanceViewset
+from ctxwatch.api.cluster import ClusterViewset
+from ctxwatch.api.backups import BackupViewset, ScheduledBackupViewset
+from ctxwatch.api.analyze import AnalyzeViewset
+from ctxwatch.api.async_migration import AsyncMigrationsViewset
 from ctxwatch.views import healthz
+from ctxwatch.api.saved_queries import SavedQueryViewset
+
 
 class DefaultRouterPlusPlus(ExtendedDefaultRouter):
     """DefaultRouter with optional trailing slash and drf-extensions nesting."""
@@ -14,7 +20,13 @@ class DefaultRouterPlusPlus(ExtendedDefaultRouter):
 
 
 router = DefaultRouterPlusPlus()
-router.register(r"api/instances", InstanceViewset, basename="instance")
+router.register(r"api/instance", InstanceViewset, basename="instance")
+router.register(r"api/clusters", ClusterViewset, basename="cluster")
+router.register(r"api/backups", BackupViewset, basename="backup")
+router.register(r"api/scheduled_backups", ScheduledBackupViewset, basename="scheduled_backup")
+router.register(r"api/analyze", AnalyzeViewset, basename="analyze")
+router.register(r"api/async_migrations", AsyncMigrationsViewset, basename="async_migrations")
+router.register(r"api/saved_queries", SavedQueryViewset, basename="saved_queries")
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("healthz", healthz, name="healthz"),
